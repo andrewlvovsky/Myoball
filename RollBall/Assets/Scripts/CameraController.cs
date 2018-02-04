@@ -9,12 +9,11 @@ public class CameraController : MonoBehaviour {
     private Vector3 offset;
 
     private float xPos = 0.0f, yPos = 6.0f, zPos = -17.0f;
-    private float levelUp = 9.5f, levelDown = -9.5f, factor = 10f;
+    private float levelUp = 9.5f, levelDown = -9.5f, factor = 15f;
 
 	// Use this for initialization
 	void Start () {
         //offset = transform.position - player.transform.position;
-        Debug.Log("HEY STUPID");
         transform.position = new Vector3(xPos, yPos, zPos);
 	}
 	
@@ -25,6 +24,7 @@ public class CameraController : MonoBehaviour {
         if (player.transform.position.y >= levelUp || player.transform.position.y <= levelDown)
         {
             yPos -= factor;
+            zPos -= factor;
             transform.position = new Vector3(xPos, yPos, zPos);
 
             levelDown -= 10f;
