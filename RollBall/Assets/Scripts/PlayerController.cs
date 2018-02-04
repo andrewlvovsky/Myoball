@@ -15,16 +15,17 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         score = 0;
         setScore(score);
+        rb.AddForce(new Vector3(1, 1, 1));
     }
 
     private void FixedUpdate()
     {
-        float moveHor = Input.GetAxis("Horizontal");
-        float moveVer = Input.GetAxis("Vertical");
+        //float moveHor = Input.GetAxis("Horizontal");
+        //float moveVer = Input.GetAxis("Vertical");
 
-        Vector3 movForce = new Vector3(moveHor, 0.0f, moveVer);
+        //Vector3 movForce = new Vector3(moveHor, 0.0f, moveVer);
 
-        rb.AddForce(movForce / speed);
+        //rb.AddForce(movForce / speed);
     }
 
     void OnTriggerEnter(Collider other)

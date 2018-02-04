@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio for Mac
+# Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RollBall", "RollBall.csproj", "{1558BFA7-C42F-92C4-E7B9-DDACE5D3E05C}"
 EndProject
 Global
