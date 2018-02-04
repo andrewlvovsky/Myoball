@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Collectible"))
         {
-            other.gameObject.SetActive(false);
             setScore(++score);
         }
     }

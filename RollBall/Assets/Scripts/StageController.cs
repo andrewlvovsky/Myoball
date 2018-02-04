@@ -4,7 +4,8 @@ using Leap;
 using Leap.Unity;
 using UnityEngine;
 
-public class StageController : MonoBehaviour {
+public class StageController : MonoBehaviour
+{
 
     //Multiplier making pitch and roll rotation movements more pronounced
     public const float rotationSpeed = 15;
@@ -12,7 +13,7 @@ public class StageController : MonoBehaviour {
     public const float pitchOffset = 1.3f;
     public const float rollOffset = 0.75f;
     public Controller controller;
-    public FloorSignal floorOne, floorTwo;
+    public FloorSignal floor;
     private float pitch, roll;
     //Records previous pitch and roll values to discern inaccurate readings
     private float prevPitch, prevRoll;
@@ -20,18 +21,20 @@ public class StageController : MonoBehaviour {
     private int collectibles;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         collectibles = 3;
         pitch = roll = prevPitch = prevRoll = 0.0f;
         controlled = false;
     }
 
-	// Update is called once per frame
-	void Update () {
-        if(controlled)
+    // Update is called once per frame
+    void Update()
+    {
+        if (controlled)
         {
-        controller = new Controller();
-        List<Hand> hands = controller.Frame().Hands;
+            controller = new Controller();
+            List<Hand> hands = controller.Frame().Hands;
             if (hands.Count > 0)
             {
                 Hand hand = hands[0];
@@ -59,5 +62,12 @@ public class StageController : MonoBehaviour {
     {
         Debug.Log("Activated");
         controlled = true;
+    }
+
+    public void pickedUp()
+    {
+        collectibles--;
+        if (collectibles == 0)
+            floor.move(true, 10);
     }
 }
