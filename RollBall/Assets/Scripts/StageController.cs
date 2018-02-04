@@ -12,40 +12,52 @@ public class StageController : MonoBehaviour {
     public const float pitchOffset = 1.3f;
     public const float rollOffset = 0.75f;
     public Controller controller;
+    public FloorSignal floorOne, floorTwo;
     private float pitch, roll;
     //Records previous pitch and roll values to discern inaccurate readings
     private float prevPitch, prevRoll;
-    private float x, y, z;
+    private bool controlled;
+    private int collectibles;
 
     // Use this for initialization
     void Start () {
-        x = y = z = 0.0f;
+        collectibles = 3;
         pitch = roll = prevPitch = prevRoll = 0.0f;
+        controlled = false;
     }
-	
+
 	// Update is called once per frame
 	void Update () {
+        if(controlled)
+        {
         controller = new Controller();
         List<Hand> hands = controller.Frame().Hands;
-        if(hands.Count > 0)
-        {
-            Hand hand = hands[0];
-            //Pitch multiplied by -1 cause for some reason positive pitch angles in opposite direction
-            pitch = (hand.PalmNormal.Pitch + pitchOffset) * rotationSpeed * -1;
-            roll = (hand.PalmNormal.Roll + rollOffset) * rotationSpeed;
-            if (Mathf.Abs(prevRoll - roll) > 22.0f && prevRoll != 0.0f)
+            if (hands.Count > 0)
             {
-                Debug.Log("Roll Spike " + Mathf.Abs(prevRoll - roll));
-                roll = prevRoll;
+                Hand hand = hands[0];
+                //Pitch multiplied by -1 cause for some reason positive pitch angles in opposite direction
+                pitch = (hand.PalmNormal.Pitch + pitchOffset) * rotationSpeed * -1;
+                roll = (hand.PalmNormal.Roll + rollOffset) * rotationSpeed;
+                if (Mathf.Abs(prevRoll - roll) > 22.0f && prevRoll != 0.0f)
+                {
+                    Debug.Log("Roll Spike " + Mathf.Abs(prevRoll - roll));
+                    roll = prevRoll;
+                }
+                if (Mathf.Abs(prevPitch - pitch) > 22.0f && prevPitch != 0.0f)
+                {
+                    Debug.Log("Pitch Spike " + Mathf.Abs(prevPitch - pitch));
+                    pitch = prevPitch;
+                }
+                transform.rotation = Quaternion.Euler(new Vector3(pitch, 0, roll));
+                prevRoll = roll;
+                prevPitch = pitch;
             }
-            if(Mathf.Abs(prevPitch - pitch) > 22.0f && prevPitch != 0.0f)
-            {
-                Debug.Log("Pitch Spike " + Mathf.Abs(prevPitch - pitch));
-                pitch = prevPitch;
-            }
-            transform.rotation = Quaternion.Euler(new Vector3(pitch, 0, roll));
-            prevRoll = roll;
-            prevPitch = pitch;
         }
+    }
+
+    public void activateStage()
+    {
+        Debug.Log("Activated");
+        controlled = true;
     }
 }
