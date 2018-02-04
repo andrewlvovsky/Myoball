@@ -6,6 +6,7 @@ public class Rotator : MonoBehaviour {
 
     private Vector3 rotation = new Vector3(15, 30, 45);
     public StageController stage;
+    public PlayerController player;
 
 	// Update is called once per frame
 	void Update () {
@@ -17,6 +18,7 @@ public class Rotator : MonoBehaviour {
         if (other.CompareTag("Player"))
         {
             stage.pickedUp();
+            player.incrementScore();
             gameObject.SetActive(false);
         }
     }

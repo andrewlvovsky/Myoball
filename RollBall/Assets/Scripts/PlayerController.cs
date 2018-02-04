@@ -13,8 +13,8 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        score = 0;
-        setScore(score);
+        score = -1;
+        incrementScore();
         rb.AddForce(new Vector3(1, 1, 1));
     }
 
@@ -28,17 +28,9 @@ public class PlayerController : MonoBehaviour
         //rb.AddForce(movForce / speed);
     }
 
-    void OnTriggerEnter(Collider other)
+    public void incrementScore()
     {
-        if (other.gameObject.CompareTag("Collectible"))
-        {
-            setScore(++score);
-        }
-    }
-
-    private void setScore(int val)
-    {
-        scoreText.text = "Score: " + val;
+        scoreText.text = "Score: " + ++score;
     }
 }
 

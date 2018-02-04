@@ -66,8 +66,12 @@ public class StageController : MonoBehaviour
 
     public void pickedUp()
     {
-        collectibles--;
+        collectibles = 3;
         if (collectibles == 0)
-            floor.move(true, 10);
+        {
+            collectibles = 3;
+            //move floor to expose next level
+            //floor.move(true, 10);
+        }
     }
 }

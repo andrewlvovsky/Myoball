@@ -24,6 +24,7 @@ public class FloorSignal : MonoBehaviour {
                 transform.position.Set(moveUnits, transform.position.y, transform.position.z);
             else
                 transform.position.Set(transform.position.x, transform.position.y, moveUnits);
+            moveFloor = false;
         }
     }
 
